@@ -63,6 +63,8 @@ CFG: FB: -vid 0x0525 -pid 0x402F
 CFG: FB: -vid 0x0525 -pid 0x4030
 CFG: FB: -vid 0x0525 -pid 0x4031
 CFG: FB: -vid 0x1b67 -pid 0x4025
+CFG: FB: -vid 0x1b67 -pid 0x4046
+#1b67:4046: Toradex 0070 Verdin iMX8M Plus 8GB WB IT
 
 # Load bootloader image into RAM
 SDPS: boot -f "${bootloader}"
