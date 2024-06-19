@@ -1,6 +1,0 @@
-{
-    "files.watcherExclude": {
-        "**/build/**": true,
-        "**/image/**": true
-    },
-}
