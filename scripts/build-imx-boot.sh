@@ -14,7 +14,7 @@ mkdir -p build && cd build
 
 # Download and extract the IMX Firmware
 if [ ! -d firmware-imx-8.10.1 ]; then
-    wget -nc wget https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/firmware-imx-8.10.1.bin
+    wget -nc https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/firmware-imx-8.10.1.bin
     chmod +x firmware-imx-8.10.1.bin
     ./firmware-imx-8.10.1.bin --auto-accept --force
     cp firmware-imx-8.10.1/firmware/ddr/synopsys/lpddr4*_202006.bin ./
@@ -22,7 +22,7 @@ if [ ! -d firmware-imx-8.10.1 ]; then
 fi
 
 # Download and build the ARM Trusted Firmware (ATF)
-if [ ! -d imx-atf ]; then
+if [ ! -d trusted-firmware-a ]; then
     git clone https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git
     #git clone --depth=1 --progress -b toradex_imx_5.4.70_2.3.0 git://git.toradex.com/imx-atf.git 
 fi
