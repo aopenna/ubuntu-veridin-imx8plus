@@ -136,7 +136,7 @@ EOF
     # Uboot script
     cat > ${mount_point}/boot/boot.cmd << EOF
 env set bootargs "root=UUID=${root_uuid} console=ttyLP1,115200 console=tty1 pci=nomsi rootfstype=ext4 rootwait rw"
-fatload \${devtype} \${devnum}:1 \${fdt_addr_r} /imx8qm-apalis-v1.1-ixora-v1.2.dtb
+fatload \${devtype} \${devnum}:1 \${fdt_addr_r} /imx8mp-verdin-wifi-dahlia.dtb 
 fdt addr \${fdt_addr_r} && fdt resize 0x2000
 fatload \${devtype} \${devnum}:1 \${loadaddr} /overlays/apalis-imx8_hdmi_overlay.dtbo
 fdt apply \${loadaddr}
@@ -148,17 +148,16 @@ EOF
     mkimage -A arm64 -O linux -T script -C none -n "Boot Script" -d ${mount_point}/boot/boot.cmd ${mount_point}/boot/boot.scr
 
     # Copy device tree blobs
-    cp linux-toradex/arch/arm64/boot/dts/freescale/imx8qm-apalis-*.dtb ${mount_point}/boot
-    cp linux-toradex/arch/arm64/boot/dts/freescale/imx8qp-apalis-*.dtb ${mount_point}/boot
+    cp linux-toradex/arch/arm64/boot/dts/freescale/imx8mp-verdin-*.dtb ${mount_point}/boot
 
     # Copy device tree overlays
     mkdir -p ${mount_point}/boot/overlays
-    cp device-tree-overlays/overlays/apalis-*.dtbo ${mount_point}/boot/overlays
+    cp device-tree-overlays/overlays/verdin-*.dtbo ${mount_point}/boot/overlays
     cp device-tree-overlays/overlays/display-*.dtbo ${mount_point}/boot/overlays
 
     # Copy hdmi firmware
-    cp firmware-imx-8.15/firmware/hdmi/cadence/dpfw.bin ${mount_point}/boot
-    cp firmware-imx-8.15/firmware/hdmi/cadence/hdmitxfw.bin ${mount_point}/boot
+    cp firmware-imx-8.10.1/firmware/hdmi/cadence/dpfw.bin ${mount_point}/boot
+    cp firmware-imx-8.10.1/firmware/hdmi/cadence/hdmitxfw.bin ${mount_point}/boot
 
     sync --file-system
     sync
