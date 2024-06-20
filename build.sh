@@ -9,13 +9,29 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Build the imx boot container and U-Boot
-./scripts/build-imx-boot.sh
+echo "#########################"
+echo "#   build-imx-boot.sh   #"
+echo "#########################"
+time ./scripts/build-imx-boot.sh
+echo "Finished build-imx-boot.sh with no erros!"
 
 # Build the Linux kernel and Device Tree Blobs
-./scripts/build-kernel.sh
+echo "#########################"
+echo "#    build-kernel.sh    #"
+echo "#########################"
+time ./scripts/build-kernel.sh
+echo "Finished build-kernel.sh with no erros!"
 
+echo "#########################"
+echo "#    build-rootfs.sh    #"
+echo "#########################"
 # Build the root file system
-./scripts/build-rootfs.sh
+time ./scripts/build-rootfs.sh
+echo "Finished build-rootfs.sh with no erros!"
 
+echo "#########################"
+echo "#    build-image.sh     #"
+echo "#########################"
 # Build the Ubuntu preinstalled images
-./scripts/build-image.sh
+time ./scripts/build-image.sh
+echo "Finished build-image.sh with no erros!"
