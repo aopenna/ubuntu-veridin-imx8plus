@@ -42,5 +42,4 @@ if [ ! -d device-tree-overlays ]; then
     git clone --depth=1 --progress -b toradex_5.15-2.1.x-imx git://git.toradex.com/device-tree-overlays.git
 fi
 cd device-tree-overlays/overlays
-$ cd overlays/
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- STAGING_KERNEL_DIR="$(readlink -f ../../linux-toradex)"
