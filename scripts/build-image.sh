@@ -158,6 +158,8 @@ EOF
     # Copy hdmi firmware
     cp firmware-imx-8.10.1/firmware/hdmi/cadence/dpfw.bin ${mount_point}/boot
     cp firmware-imx-8.10.1/firmware/hdmi/cadence/hdmitxfw.bin ${mount_point}/boot
+    cp firmware-imx-8.10.1/firmware/hdmi/cadence/signed_hdmi_imx8m.bin ${mount_point}/boot
+    cp firmware-imx-8.10.1/firmware/hdmi/cadence/signed_dp_imx8m.bin ${mount_point}/boot
 
     sync --file-system
     sync
