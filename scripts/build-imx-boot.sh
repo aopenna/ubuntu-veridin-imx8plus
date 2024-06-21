@@ -33,7 +33,8 @@ cd ..
 
 # Download and build u-boot
 if [ ! -d u-boot-toradex ]; then
-    git clone --depth=1 --progress -b toradex_imx_lf_v2022.04 git://git.toradex.com/u-boot-toradex.git
+    #git clone --depth=1 --progress -b toradex_imx_lf_v2022.04 git://git.toradex.com/u-boot-toradex.git
+    git clone --depth=1 --progress -b toradex_imx_v2020.04_5.4.70_2.3.0 git://git.toradex.com/u-boot-toradex.git
 fi
 cd u-boot-toradex
 if git apply --check ../../patches/u-boot-toradex/0001-usb-first-boot-target.patch > /dev/null 2>&1; then
