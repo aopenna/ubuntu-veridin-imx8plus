@@ -17,11 +17,12 @@ if [ ! -d linux-toradex ]; then
 fi
 
 # Download and extract the IMX Firmware
-if [ ! -d firmware-imx-8.15 ]; then
-    wget -nc https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/firmware-imx-8.15.bin
-    chmod u+x firmware-imx-8.15.bin
-    ./firmware-imx-8.15.bin --auto-accept --force
-    rm -f firmware-imx-8.15.bin
+if [ ! -d firmware-imx-8.10.1 ]; then
+    wget -nc wget https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/firmware-imx-8.10.1.bin
+    chmod +x firmware-imx-8.10.1.bin
+    ./firmware-imx-8.10.1.bin --auto-accept --force
+    cp firmware-imx-8.10.1/firmware/ddr/synopsys/lpddr4*_202006.bin ./
+    rm -f firmware-imx-8.10.1.bin
 fi
 
 # These env vars can cause issues with chroot
@@ -193,7 +194,7 @@ EOF
 echo "nameserver 8.8.8.8" > ${chroot_dir}/etc/resolv.conf
 
 # Hostname
-echo "apalis-imx8" > ${chroot_dir}/etc/hostname
+echo "verdin-imx8" > ${chroot_dir}/etc/hostname
 
 # Networking interfaces
 cat > ${chroot_dir}/etc/network/interfaces << EOF
@@ -214,7 +215,7 @@ EOF
 # Hosts file
 cat > ${chroot_dir}/etc/hosts << EOF
 127.0.0.1       localhost
-127.0.1.1       apalis-imx8
+127.0.1.1       verdin-imx8
 
 ::1             localhost ip6-localhost ip6-loopback
 fe00::0         ip6-localnet
@@ -339,18 +340,18 @@ sed -i 's/^Prompt.*/Prompt=never/' ${chroot_dir}/etc/update-manager/release-upgr
 
 # Copy the hdmi firmware
 mkdir -p ${chroot_dir}/lib/firmware/imx/hdmi
-cp firmware-imx-8.15/firmware/hdmi/cadence/* ${chroot_dir}/lib/firmware/imx/hdmi
+cp firmware-imx-8.10.1/firmware/hdmi/cadence/* ${chroot_dir}/lib/firmware/imx/hdmi
 
 # Copy the vpu firmware
 mkdir -p ${chroot_dir}/lib/firmware/vpu
-cp firmware-imx-8.15/firmware/vpu/* ${chroot_dir}/lib/firmware/vpu
+cp firmware-imx-8.10.1/firmware/vpu/* ${chroot_dir}/lib/firmware/vpu
 
 # Umount the temporary API filesystems
 umount -lf ${chroot_dir}/dev/pts 2> /dev/null || true
 umount -lf ${chroot_dir}/* 2> /dev/null || true
 
 # Tar the entire rootfs
-cd ${chroot_dir} && XZ_OPT="-0 -T0" tar -cpJf ../ubuntu-20.04-preinstalled-server-arm64-apalis.rootfs.tar.xz . && cd ..
+cd ${chroot_dir} && XZ_OPT="-0 -T0" tar -cpJf ../ubuntu-20.04-preinstalled-server-arm64-verdin.rootfs.tar.xz . && cd ..
 
 # Mount the temporary API filesystems
 mkdir -p ${chroot_dir}/{proc,sys,run,dev,dev/pts}
@@ -546,4 +547,4 @@ umount -lf ${chroot_dir}/dev/pts 2> /dev/null || true
 umount -lf ${chroot_dir}/* 2> /dev/null || true
 
 # Tar the entire rootfs
-cd ${chroot_dir} && XZ_OPT="-0 -T0" tar -cpJf "../ubuntu-20.04-preinstalled-desktop-weston-arm64-apalis.rootfs.tar.xz" . && cd ..
+cd ${chroot_dir} && XZ_OPT="-0 -T0" tar -cpJf "../ubuntu-20.04-preinstalled-desktop-weston-arm64-verdin.rootfs.tar.xz" . && cd ..
