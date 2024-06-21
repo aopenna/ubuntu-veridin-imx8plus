@@ -29,7 +29,7 @@ for rootfs in *.rootfs.tar.xz; do
     fi
 
     # Create an empty disk image
-    img="../images/$(basename "${rootfs}".rootfs.tar.xz).img"
+    img="../images/$(basename "${rootfs}" .rootfs.tar.xz).img"
     size="$(xz --robot -l "${rootfs}" | tail -n 1 | awk '{print int($5/1048576 + 1)}')"
     truncate -s "$(( size + 2048 + 512 ))M" "${img}"
 
@@ -153,7 +153,7 @@ EOF
     # Copy device tree overlays
     mkdir -p ${mount_point}/boot/overlays
     cp device-tree-overlays/overlays/verdin-*.dtbo ${mount_point}/boot/overlays
-    cp device-tree-overlays/overlays/display-*.dtbo ${mount_point}/boot/overlays
+    #cp device-tree-overlays/overlays/display-*.dtbo ${mount_point}/boot/overlays
 
     # Copy hdmi firmware
     cp firmware-imx-8.10.1/firmware/hdmi/cadence/dpfw.bin ${mount_point}/boot
