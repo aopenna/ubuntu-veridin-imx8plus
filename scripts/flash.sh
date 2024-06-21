@@ -70,13 +70,14 @@ CFG: FB: -vid 0x1b67 -pid 0x4046
 SDPS: boot -f "${bootloader}"
 
 # Setup uboot environment for flashing the emmc
-FB: ucmd setenv fastboot_dev mmc
-FB: ucmd setenv mmcdev 0
-FB: ucmd mmc dev 0
+FB: ucmd setenv fastboot_dev mmc2
+FB: ucmd setenv mmcdev 2
+FB: ucmd mmc dev 2
 
 # Flash the bootloader to the emmc boot partition
 FB: flash bootloader "${bootloader}"
-FB: ucmd mmc partconf 0 0 1 0
+FB: ucmd if env exists emmc_ack; then ; else setenv emmc_ack 0; fi;
+#FB: ucmd mmc partconf 0 0 1 0
 
 # Flash the os image to the emmc
 FB: flash -raw2sparse all "${img}"
