@@ -23,7 +23,7 @@ cd "$(dirname -- "$(readlink -f -- "$0")")" && cd ..
 mkdir -p build && cd build
 
 # Ensure the imx bootloader exists
-bootloader="imx-mkimage/iMX8QM/imx-boot"
+bootloader="imx-mkimage/iMX8M/imx-boot"
 if [ ! -f "${bootloader}" ] ; then
     echo "Error: could not find the imx bootloader, please run build-imx-boot.sh"
     exit 1
