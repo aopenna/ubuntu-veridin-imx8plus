@@ -22,9 +22,12 @@ if git apply --check ../../patches/linux-toradex/0001-increase-spi-fifo-size.pat
     git apply ../../patches/linux-toradex/0001-increase-spi-fifo-size.patch
 fi
 
-# Set kernel config 
+cp ../scripts/kernel-config .config
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
+
+# Set kernel config
 # TODO: verify if this is util https://artifacts.toradex.com/artifactory/tdxref-oe-prod-frankfurt/kirkstone-6.x.y/release/12/verdin-imx8mp/tdx-xwayland/tdx-reference-multimedia-image/oedeploy/kernel-config
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig
+#make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig
 ./scripts/config --disable CONFIG_DEBUG_INFO
 
 # Set custom kernel version
