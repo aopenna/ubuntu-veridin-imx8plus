@@ -22,7 +22,7 @@ if git apply --check ../../patches/linux-toradex/0001-increase-spi-fifo-size.pat
     git apply ../../patches/linux-toradex/0001-increase-spi-fifo-size.patch
 fi
 
-cp ../scripts/kernel-config .config
+cp ../../scripts/kernel-config ./.config
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
 
 # Set kernel config

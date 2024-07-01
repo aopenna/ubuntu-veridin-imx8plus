@@ -122,7 +122,7 @@ for rootfs in *.rootfs.tar.xz; do
 insmod gzio
 set background_color=black
 set default=0
-set timeout=10
+set timeout=2
 
 GRUB_RECORDFAIL_TIMEOUT=
 
@@ -138,7 +138,7 @@ EOF
 env set bootargs "root=UUID=${root_uuid} console=ttyLP1,115200 console=tty1 pci=nomsi rootfstype=ext4 rootwait rw"
 fatload \${devtype} \${devnum}:1 \${fdt_addr_r} /imx8mp-verdin-wifi-dahlia.dtb 
 fdt addr \${fdt_addr_r} && fdt resize 0x2000
-fatload \${devtype} \${devnum}:1 \${loadaddr} /overlays/apalis-imx8_hdmi_overlay.dtbo
+fatload \${devtype} \${devnum}:1 \${loadaddr} /overlays/verdin-imx8mp_hdmi_overlay.dtbo
 fdt apply \${loadaddr}
 ext4load \${devtype} \${devnum}:2 \${ramdisk_addr_r} /boot/vmlinuz
 unzip \${ramdisk_addr_r} \${kernel_addr_r}

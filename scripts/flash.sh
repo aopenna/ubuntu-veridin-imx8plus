@@ -33,7 +33,7 @@ fi
 echo "Decompressing image"
 filename="$(basename "${img}")"
 if [ "${filename##*.}" == "xz" ]; then
-    xz -dc -T0 "${img}" > "${filename%.*}"
+    xz -vdc -T0 "${img}" > "${filename%.*}"
     img="$(readlink -f "${filename%.*}")"
 fi
 
@@ -64,7 +64,9 @@ CFG: FB: -vid 0x0525 -pid 0x4030
 CFG: FB: -vid 0x0525 -pid 0x4031
 CFG: FB: -vid 0x1b67 -pid 0x4025
 CFG: FB: -vid 0x1b67 -pid 0x4046
+CFG: FB: -vid 0x0525 -pid 0x4046
 #1b67:4046: Toradex 0070 Verdin iMX8M Plus 8GB WB IT
+#0525:4046 Netchip Technology, Inc. USB download gadget
 
 # Load bootloader image into RAM
 SDPS: boot -f "${bootloader}"
@@ -77,7 +79,7 @@ FB: ucmd mmc dev 2
 # Flash the bootloader to the emmc boot partition
 FB: flash bootloader "${bootloader}"
 FB: ucmd if env exists emmc_ack; then ; else setenv emmc_ack 0; fi;
-#FB: ucmd mmc partconf 0 0 1 0
+FB: ucmd mmc partconf 2 0 1 0
 
 # Flash the os image to the emmc
 FB: flash -raw2sparse all "${img}"
